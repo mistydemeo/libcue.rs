@@ -8,7 +8,7 @@ use rem::REM;
 pub enum TrackMode {
     Audio,
     Mode1,
-    Mode1RAW,
+    Mode1Raw,
     Mode2,
     Mode2Form1,
     Mode2Form2,
