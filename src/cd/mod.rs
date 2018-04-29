@@ -1,4 +1,8 @@
 use std::ffi::{CString, NulError};
+use std::fs::File;
+use std::io::prelude::*;
+use std::io;
+use std::path::PathBuf;
 
 use libc;
 
@@ -30,6 +34,12 @@ impl CD {
             cd: cd,
         };
         return Ok(cd_type);
+    }
+
+    pub fn parse_file(path: PathBuf) -> Result<CD, io::Error> {
+        let mut cue_sheet = vec![];
+        File::open(&path)?.read_to_end(&mut cue_sheet)?;
+        return Ok(CD::parse(String::from_utf8_lossy(&cue_sheet).into_owned()).unwrap());
     }
 
     pub fn get_mode(&self) -> DiscMode {
