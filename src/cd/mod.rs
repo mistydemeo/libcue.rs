@@ -57,13 +57,13 @@ impl CD {
         return c_string.to_string_lossy().into_owned();
     }
 
-    pub fn get_track_count(&self) -> usize {
+    pub fn get_track_count(&self) -> isize {
         unsafe {
-            return raw::cd_get_ntrack(self.cd) as usize;
+            return raw::cd_get_ntrack(self.cd) as isize;
         }
     }
 
-    pub fn get_track(&self, index: usize) -> Result<Track, String> {
+    pub fn get_track(&self, index: isize) -> Result<Track, String> {
         let track_count = self.get_track_count();
         if index > track_count {
             return Err(format!("Invalid index; CD has {} tracks", track_count));

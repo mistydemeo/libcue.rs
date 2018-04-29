@@ -54,15 +54,15 @@ impl Track {
         return c_string.to_string_lossy().into_owned();
     }
 
-    pub fn get_start(&self) -> u64 {
+    pub fn get_start(&self) -> i64 {
         unsafe {
-            return raw::track_get_start(self.track) as u64;
+            return raw::track_get_start(self.track) as i64;
         }
     }
 
-    pub fn get_length(&self) -> u64 {
+    pub fn get_length(&self) -> i64 {
         unsafe {
-            return raw::track_get_length(self.track) as u64;
+            return raw::track_get_length(self.track) as i64;
         }
     }
 
@@ -86,15 +86,15 @@ impl Track {
         return result == 1;
     }
 
-    pub fn get_zero_pre(&self) -> u64 {
+    pub fn get_zero_pre(&self) -> i64 {
         unsafe {
-            return raw::track_get_zero_pre(self.track) as u64;
+            return raw::track_get_zero_pre(self.track) as i64;
         }
     }
 
-    pub fn get_zero_post(&self) -> u64 {
+    pub fn get_zero_post(&self) -> i64 {
         unsafe {
-            return raw::track_get_zero_post(self.track) as u64;
+            return raw::track_get_zero_post(self.track) as i64;
         }
     }
 
@@ -107,9 +107,9 @@ impl Track {
         return c_string.to_string_lossy().into_owned();
     }
 
-    pub fn get_index(&self, index: usize) -> usize {
+    pub fn get_index(&self, index: isize) -> isize {
         unsafe {
-            return raw::track_get_index(self.track, index as libc::c_int) as usize;
+            return raw::track_get_index(self.track, index as libc::c_int) as isize;
         }
     }
 
