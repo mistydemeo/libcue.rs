@@ -63,7 +63,7 @@ impl CD {
         }
     }
 
-    pub fn cd_get_track(&self, index: usize) -> Result<Track, String> {
+    pub fn get_track(&self, index: usize) -> Result<Track, String> {
         let track_count = self.get_track_count();
         if index > track_count {
             return Err(format!("Invalid index; CD has {} tracks", track_count));
