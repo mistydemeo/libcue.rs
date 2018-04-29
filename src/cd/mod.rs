@@ -77,6 +77,17 @@ impl CD {
         return Ok(Track::from(track));
     }
 
+    pub fn tracks(&self) -> Vec<Track> {
+        let mut tracks = vec![];
+        let mut index = 1;
+        while index <= self.get_track_count() {
+            tracks.push(self.get_track(index).unwrap());
+            index += 1;
+        }
+
+        return tracks;
+    }
+
     pub fn get_cdtext(&self) -> CDText {
         let cdtext;
         unsafe {
