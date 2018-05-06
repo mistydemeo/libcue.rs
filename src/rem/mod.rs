@@ -1,6 +1,6 @@
 use std::ffi::CString;
 use libc;
-use raw;
+use libcue_sys as libcue;
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
@@ -14,11 +14,11 @@ pub enum RemType {
 }
 
 pub struct REM {
-    rem: *mut raw::RemPointer,
+    rem: *mut libcue::RemPointer,
 }
 
 impl REM {
-    pub fn from(pointer: *mut raw::RemPointer) -> REM {
+    pub fn from(pointer: *mut libcue::RemPointer) -> REM {
         return REM {
             rem: pointer,
         };
@@ -27,7 +27,7 @@ impl REM {
     pub fn read(&self, index: usize) -> String {
         let c_string;
         unsafe {
-            let raw_string = raw::rem_get(index as libc::c_uint, self.rem);
+            let raw_string = libcue::rem_get(index as libc::c_uint, self.rem);
             c_string = CString::from_raw(raw_string);
         }
         return c_string.to_string_lossy().into_owned();

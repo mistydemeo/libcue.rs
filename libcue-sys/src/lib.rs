@@ -1,12 +1,69 @@
-use libc;
-use cd::DiscMode;
-use cd_text::PTI;
-use track::{TrackMode, TrackSubMode, TrackFlag};
+extern crate libc;
 
 pub enum CdPointer {}
 pub enum CdtextPointer {}
 pub enum TrackPointer {}
 pub enum RemPointer {}
+
+#[repr(C)]
+#[allow(non_camel_case_types)]
+pub enum DiscMode {
+    CD_DA,
+    CD_ROM,
+    CD_ROM_XA,
+}
+
+#[repr(C)]
+#[allow(non_camel_case_types)]
+pub enum PTI {
+    Title,
+    Performer,
+    Songwriter,
+    Composer,
+    Arranger,
+    Message,
+    DiscID,
+    Genre,
+    TOCInfo1,
+    TOCInfo2,
+    Reserved1,
+    Reserved2,
+    Reserved3,
+    Reserved4,
+    UPC_ISRC,
+    SizeInfo,
+    End,
+}
+
+#[repr(C)]
+pub enum TrackMode {
+    Audio,
+    Mode1,
+    Mode1Raw,
+    Mode2,
+    Mode2Form1,
+    Mode2Form2,
+    Mode2FormMix,
+    Mode2Raw,
+}
+
+#[repr(C)]
+#[allow(non_camel_case_types)]
+pub enum TrackSubMode {
+    RW,
+    RW_RAW,
+}
+
+#[repr(C)]
+pub enum TrackFlag {
+    None,
+    PreEmphasis,
+    CopyPermitted,
+    Data,
+    FourChannel,
+    SCMS,
+    Any,
+}
 
 #[link(name = "cue")]
 extern "C" {
