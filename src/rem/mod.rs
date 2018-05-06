@@ -1,4 +1,5 @@
 use std::ffi::CString;
+
 use libc;
 use libcue_sys as libcue;
 
