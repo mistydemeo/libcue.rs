@@ -5,22 +5,15 @@ use std::io;
 use std::path::PathBuf;
 
 use libc;
+use libcue_sys as libcue;
+use libcue_sys::DiscMode;
 
 use cd_text::CDText;
-use raw;
 use rem::REM;
 use track::Track;
 
-#[repr(C)]
-#[allow(non_camel_case_types)]
-pub enum DiscMode {
-    CD_DA,
-    CD_ROM,
-    CD_ROM_XA,
-}
-
 pub struct CD {
-    cd: *mut raw::CdPointer,
+    cd: *mut libcue::CdPointer,
 }
 
 impl CD {
@@ -28,7 +21,7 @@ impl CD {
         let c_string = CString::new(string)?;
         let cd;
         unsafe {
-            cd = raw::cue_parse_string(c_string.as_ptr());
+            cd = libcue::cue_parse_string(c_string.as_ptr());
         }
         let cd_type = CD {
             cd: cd,
@@ -44,14 +37,14 @@ impl CD {
 
     pub fn get_mode(&self) -> DiscMode {
         unsafe {
-            return raw::cd_get_mode(self.cd);
+            return libcue::cd_get_mode(self.cd);
         }
     }
 
     pub fn get_cdtextfile(&self) -> String {
         let c_string;
         unsafe {
-            let raw_string = raw::cd_get_cdtextfile(self.cd);
+            let raw_string = libcue::cd_get_cdtextfile(self.cd);
             c_string = CString::from_raw(raw_string);
         }
         return c_string.to_string_lossy().into_owned();
@@ -59,7 +52,7 @@ impl CD {
 
     pub fn get_track_count(&self) -> isize {
         unsafe {
-            return raw::cd_get_ntrack(self.cd) as isize;
+            return libcue::cd_get_ntrack(self.cd) as isize;
         }
     }
 
@@ -71,7 +64,7 @@ impl CD {
 
         let track;
         unsafe {
-            track = raw::cd_get_track(self.cd, index as libc::c_int);
+            track = libcue::cd_get_track(self.cd, index as libc::c_int);
         }
 
         return Ok(Track::from(track));
@@ -91,7 +84,7 @@ impl CD {
     pub fn get_cdtext(&self) -> CDText {
         let cdtext;
         unsafe {
-            cdtext = raw::cd_get_cdtext(self.cd);
+            cdtext = libcue::cd_get_cdtext(self.cd);
         }
         return CDText::from(cdtext);
     }
@@ -99,7 +92,7 @@ impl CD {
     pub fn get_rem(&self) -> REM {
         let rem;
         unsafe {
-            rem = raw::cd_get_rem(self.cd);
+            rem = libcue::cd_get_rem(self.cd);
         }
         return REM::from(rem);
     }
@@ -108,7 +101,7 @@ impl CD {
 impl Drop for CD {
     fn drop(&mut self) {
         unsafe {
-            raw::cd_delete(self.cd);
+            libcue::cd_delete(self.cd);
         }
     }
 }
