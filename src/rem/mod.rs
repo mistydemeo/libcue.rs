@@ -14,6 +14,9 @@ pub enum RemType {
     End,
 }
 
+/// Represents a comment on a CD or Track.
+/// This field is usually just used to store arbitrary human-readable comments,
+/// but is also used by some programs to include custom metadata.
 pub struct REM {
     rem: *mut libcue::RemPointer,
 }
@@ -25,6 +28,7 @@ impl REM {
         };
     }
 
+    /// Returns the comment represented by this struct as a string.
     pub fn read(&self, index: usize) -> String {
         let c_string;
         unsafe {

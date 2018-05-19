@@ -12,11 +12,20 @@ use cd_text::CDText;
 use rem::REM;
 use track::Track;
 
+/// The CD struct represents the entirety of a CD, which is the core unit of
+/// a CUE sheet. This struct contains the parsing methods used as the primary
+/// entry point to libcue's functionality.
+///
+/// A CD can be a pure CD audio disc, a pure data disc, or a mixed-mode disc
+/// containing both data and audio tracks in arbitrary order. A CD will
+/// always have at least one track.
 pub struct CD {
     cd: *mut libcue::CdPointer,
 }
 
 impl CD {
+    /// Parses a string containing a CUE sheet and returns a CD struct.
+    /// Returns a NulError if the provided string contains any null bytes.
     pub fn parse(string: String) -> Result<CD, NulError> {
         let c_string = CString::new(string)?;
         let cd;
@@ -29,18 +38,25 @@ impl CD {
         return Ok(cd_type);
     }
 
+    /// Reads the file contained at `path` and parses it like the `parse` function
+    /// above.
     pub fn parse_file(path: PathBuf) -> Result<CD, io::Error> {
         let mut cue_sheet = vec![];
         File::open(&path)?.read_to_end(&mut cue_sheet)?;
         return Ok(CD::parse(String::from_utf8_lossy(&cue_sheet).into_owned()).unwrap());
     }
 
+    /// Returns a DiscMode value indicating the type of disc represented by this
+    /// CUE sheet.
+    /// Individual tracks also have types; see `Track.get_mode` and `Track.get_sub_mode`.
     pub fn get_mode(&self) -> DiscMode {
         unsafe {
             return libcue::cd_get_mode(self.cd);
         }
     }
 
+    /// Returns the path on disc to the sidecar metadata file containing CD-TEXT
+    /// metadata, if any.
     pub fn get_cdtextfile(&self) -> String {
         let c_string;
         unsafe {
@@ -50,12 +66,17 @@ impl CD {
         return c_string.to_string_lossy().into_owned();
     }
 
+    /// Returns the total number of tracks in this CD.
     pub fn get_track_count(&self) -> isize {
         unsafe {
             return libcue::cd_get_ntrack(self.cd) as isize;
         }
     }
 
+    /// Returns a Track struct for the track at the requested index.
+    /// If the requested track doesn't exist in the CD, returns `Err`
+    /// with a string containing an error message.
+    /// Note that track numbering starts from 1; there is no track 0.
     pub fn get_track(&self, index: isize) -> Result<Track, String> {
         let track_count = self.get_track_count();
         if index > track_count {
@@ -70,6 +91,7 @@ impl CD {
         return Ok(Track::from(track));
     }
 
+    /// Returns a Vec containing every track in the CD.
     pub fn tracks(&self) -> Vec<Track> {
         let mut tracks = vec![];
         let mut index = 1;
@@ -81,6 +103,8 @@ impl CD {
         return tracks;
     }
 
+    /// Returns a CDText struct representing the CD-TEXT data stored within
+    /// this CUE sheet.
     pub fn get_cdtext(&self) -> CDText {
         let cdtext;
         unsafe {
@@ -89,6 +113,8 @@ impl CD {
         return CDText::from(cdtext);
     }
 
+    /// Returns a REM struct representing the comments stored within
+    /// this CUE sheet.
     pub fn get_rem(&self) -> REM {
         let rem;
         unsafe {
