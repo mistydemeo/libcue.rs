@@ -19,6 +19,33 @@ use track::Track;
 /// A CD can be a pure CD audio disc, a pure data disc, or a mixed-mode disc
 /// containing both data and audio tracks in arbitrary order. A CD will
 /// always have at least one track.
+///
+/// Here's an example of a simple function which parses a CUE sheet and
+/// prints information about its contents:
+///
+/// ```rust, no_run
+/// let cd = CD::parse_file(path).unwrap();
+///
+/// println!("Number of tracks: {}", cd.get_track_count());
+/// let mode = match cd.get_mode() {
+///     DiscMode::CD_DA => "CD-DA",
+///     DiscMode::CD_ROM => "CD-ROM",
+///     DiscMode::CD_ROM_XA => "CD-ROM XA",
+/// };
+/// println!("Mode: {}", mode);
+/// println!("");
+///
+/// for (index, track) in cd.tracks().iter().enumerate() {
+///     println!("Track {}", index + 1);
+///     println!("Filename: {}", track.get_filename());
+///     println!("Mode: {}", track_mode);
+///     println!("Start: {}", track.get_start());
+///     println!("Length: {}", track.get_length());
+///     println!("Pregap: {}", track.get_zero_pre());
+///     println!("Postgap: {}", track.get_zero_post());
+///     println!("");
+/// }
+/// ```
 pub struct CD {
     cd: *mut libcue::CdPointer,
 }
