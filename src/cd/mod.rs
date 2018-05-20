@@ -23,7 +23,7 @@ use track::Track;
 /// Here's an example of a simple function which parses a CUE sheet and
 /// prints information about its contents:
 ///
-/// ```rust, no_run
+/// ```rust, ignore
 /// let cd = CD::parse_file(path).unwrap();
 ///
 /// println!("Number of tracks: {}", cd.get_track_count());
