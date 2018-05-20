@@ -9,8 +9,8 @@ pub enum RemType {
     Date,
     ReplayGainAlbumGain,
     ReplayGainAlbumPeak,
-    ReplaygainTrackGain,
-    ReplaygainTrackPeak,
+    ReplayGainTrackGain,
+    ReplayGainTrackPeak,
     End,
 }
 
