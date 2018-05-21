@@ -38,12 +38,19 @@ pub enum PTI {
 #[repr(C)]
 pub enum TrackMode {
     Audio,
+    /// 2048-byte data without ECC
     Mode1,
+    /// 2048-byte data with ECC
     Mode1Raw,
+    /// 2336-byte data without ECC
     Mode2,
+    /// 2048-byte data (CD-ROM XA)
     Mode2Form1,
+    /// 2324-byte data (CD-ROM XA)
     Mode2Form2,
+    /// 2332-byte data (CD-ROM XA)
     Mode2FormMix,
+    /// 2336-byte data with ECC
     Mode2Raw,
 }
 
