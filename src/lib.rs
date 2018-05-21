@@ -14,12 +14,12 @@
 extern crate libc;
 extern crate libcue_sys;
 
-/// The CD struct represents a disc, and is the entry point to parsing a CUE sheet.
+/// The `CD` struct represents a disc, and is the entry point to parsing a CUE sheet.
 pub mod cd;
-/// The CDText struct represents [CD-TEXT](https://en.wikipedia.org/wiki/CD-Text) data
+/// The `CDText` struct represents [CD-TEXT](https://en.wikipedia.org/wiki/CD-Text) data
 /// stored alongside tracks in a CUE sheet.
 pub mod cd_text;
-/// The REM struct represents comments within a CUE sheet.
+/// The `REM` struct represents comments within a CUE sheet.
 pub mod rem;
-/// The Track struct represents a single track of a CD.
+/// The `Track` struct represents a single track of a CD.
 pub mod track;

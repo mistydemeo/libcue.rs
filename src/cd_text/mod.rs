@@ -4,7 +4,7 @@ use libcue_sys as libcue;
 use libcue_sys::PTI;
 
 /// Represents [CD-TEXT](https://en.wikipedia.org/wiki/CD-Text)
-/// data stored in either a CD or a single Track.
+/// data stored in either a [`CD`] or a single [`Track`].
 ///
 /// CD-TEXT is a simple metadata format embedded into an audio CD's
 /// subcode data which is streamed alongside the CD content itself.
@@ -12,6 +12,9 @@ use libcue_sys::PTI;
 /// track titles, genres, and basic credits.
 /// CUE sheets can contain parsed plaintext representations of CD-TEXT
 /// data.
+///
+/// [`CD`]: ../cd/struct.CD.html
+/// [`Track`]: ../track/struct.Track.html
 pub struct CDText {
     cdtext: *mut libcue::CdtextPointer,
 }

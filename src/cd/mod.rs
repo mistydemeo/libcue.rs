@@ -51,10 +51,10 @@ pub struct CD {
 }
 
 impl CD {
-    /// Parses a string containing a CUE sheet and returns a CD struct.
+    /// Parses a string containing a CUE sheet and returns a `CD` struct.
     ///
     /// # Errors
-    /// Returns a NulError if the provided string contains any null bytes.
+    /// Returns a `NulError` if the provided string contains any null bytes.
     pub fn parse(string: String) -> Result<CD, NulError> {
         let c_string = CString::new(string)?;
         let cd;
@@ -67,7 +67,7 @@ impl CD {
         return Ok(cd_type);
     }
 
-    /// Reads the file contained at `path` and parses it like the `parse` function
+    /// Reads the file contained at `path` and parses it like the [`parse`](#method.parse) function
     /// above.
     pub fn parse_file(path: PathBuf) -> Result<CD, io::Error> {
         let mut cue_sheet = vec![];
@@ -75,9 +75,12 @@ impl CD {
         return Ok(CD::parse(String::from_utf8_lossy(&cue_sheet).into_owned()).unwrap());
     }
 
-    /// Returns a DiscMode value indicating the type of disc represented by this
+    /// Returns a `DiscMode` value indicating the type of disc represented by this
     /// CUE sheet.
-    /// Individual tracks also have types; see `Track.get_mode` and `Track.get_sub_mode`.
+    /// Individual tracks also have types; see [`Track.get_mode`] and [`Track.get_sub_mode`].
+    ///
+    /// [`Track.get_mode`]: ../track/struct.Track.html#method.get_mode
+    /// [`Track.get_sub_mode`]: ../track/struct.Track.html#method.get_sub_mode
     pub fn get_mode(&self) -> DiscMode {
         unsafe {
             return libcue::cd_get_mode(self.cd);
@@ -102,12 +105,14 @@ impl CD {
         }
     }
 
-    /// Returns a Track struct for the track at the requested index.
+    /// Returns a [`Track`] struct for the track at the requested index.
     /// Note that track numbering starts from 1; there is no track 0.
     ///
     /// # Errors
     /// If the requested track doesn't exist in the CD, returns `Err`
     /// with a string containing an error message.
+    ///
+    /// [`Track`]: ../track/struct.Track.html
     pub fn get_track(&self, index: isize) -> Result<Track, String> {
         let track_count = self.get_track_count();
         if index > track_count {
@@ -122,7 +127,7 @@ impl CD {
         return Ok(Track::from(track));
     }
 
-    /// Returns a Vec containing every track in the CD.
+    /// Returns a `Vec` containing every track in the CD.
     pub fn tracks(&self) -> Vec<Track> {
         let mut tracks = vec![];
         let mut index = 1;
@@ -134,8 +139,10 @@ impl CD {
         return tracks;
     }
 
-    /// Returns a CDText struct representing the CD-TEXT data stored within
+    /// Returns a [`CDText`] representing the CD-TEXT data stored within
     /// this CUE sheet.
+    ///
+    /// [`CDText`]: ../cd_text/struct.CDText.html
     pub fn get_cdtext(&self) -> CDText {
         let cdtext;
         unsafe {
@@ -144,8 +151,10 @@ impl CD {
         return CDText::from(cdtext);
     }
 
-    /// Returns a REM struct representing the comments stored within
+    /// Returns a [`REM`] representing the comments stored within
     /// this CUE sheet.
+    ///
+    /// [`REM`]: ../rem/struct.REM.html
     pub fn get_rem(&self) -> REM {
         let rem;
         unsafe {

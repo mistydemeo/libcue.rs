@@ -9,7 +9,7 @@ use rem::REM;
 
 /// The Track struct represents a single track within a CD.
 /// A track can be one of several types, represented by the
-/// TrackMode struct, and a CD can mix and match tracks of
+/// `TrackMode` struct, and a CD can mix and match tracks of
 /// different types in arbitrary orders.
 ///
 /// The CUE sheet format represents its time codes
@@ -75,14 +75,14 @@ impl Track {
         }
     }
 
-    /// Returns the mode of this track as a TrackMode variant.
+    /// Returns the mode of this track as a `TrackMode` variant.
     pub fn get_mode(&self) -> TrackMode {
         unsafe {
             return libcue::track_get_mode(self.track);
         }
     }
 
-    /// Returns a TrackSubMode variant indicating whether this is a
+    /// Returns a `TrackSubMode` variant indicating whether this is a
     /// "RAW" or "cooked" track.
     /// This is most relevant to data tracks, which are made up of
     /// a mixture of data and error-correction (ECC) values. In a "cooked"
