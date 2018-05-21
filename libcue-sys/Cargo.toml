@@ -1,7 +1,0 @@
-[package]
-name = "libcue-sys"
-version = "0.1.0"
-authors = ["Misty De Meo <mistydemeo@gmail.com>"]
-
-[dependencies]
-libc = "0.2.40"

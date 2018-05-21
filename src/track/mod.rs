@@ -1,8 +1,8 @@
 use std::ffi::CString;
 
 use libc;
-use libcue_sys as libcue;
-pub use libcue_sys::{TrackMode, TrackSubMode, TrackFlag};
+use cue_sys as libcue;
+pub use cue_sys::{TrackMode, TrackSubMode, TrackFlag};
 
 use cd_text::CDText;
 use rem::REM;
