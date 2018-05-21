@@ -6,7 +6,7 @@ use std::path::PathBuf;
 
 use libc;
 use libcue_sys as libcue;
-use libcue_sys::DiscMode;
+pub use libcue_sys::DiscMode;
 
 use cd_text::CDText;
 use rem::REM;
