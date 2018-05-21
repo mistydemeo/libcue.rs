@@ -1,5 +1,11 @@
 [package]
 name = "cue"
+description = "High-level bindings for the libcue library"
+homepage = "https://github.com/mistydemeo/libcue.rs"
+repository = "https://github.com/mistydemeo/libcue.rs"
+readme = "README.md"
+keywords = ["cd", "cd-rom", "cue_sheet"]
+categories = ["api-bindings", "parser-implementations"]
 version = "1.0.0"
 authors = ["Misty De Meo <mistydemeo@gmail.com>"]
 license = "GPL-2.0-or-later"
