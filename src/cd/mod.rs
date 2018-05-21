@@ -52,6 +52,8 @@ pub struct CD {
 
 impl CD {
     /// Parses a string containing a CUE sheet and returns a CD struct.
+    ///
+    /// # Errors
     /// Returns a NulError if the provided string contains any null bytes.
     pub fn parse(string: String) -> Result<CD, NulError> {
         let c_string = CString::new(string)?;
@@ -101,9 +103,11 @@ impl CD {
     }
 
     /// Returns a Track struct for the track at the requested index.
+    /// Note that track numbering starts from 1; there is no track 0.
+    ///
+    /// # Errors
     /// If the requested track doesn't exist in the CD, returns `Err`
     /// with a string containing an error message.
-    /// Note that track numbering starts from 1; there is no track 0.
     pub fn get_track(&self, index: isize) -> Result<Track, String> {
         let track_count = self.get_track_count();
         if index > track_count {
