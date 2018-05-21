@@ -63,13 +63,13 @@ pub enum TrackSubMode {
 
 #[repr(C)]
 pub enum TrackFlag {
-    None,
-    PreEmphasis,
-    CopyPermitted,
-    Data,
-    FourChannel,
-    SCMS,
-    Any,
+    None = 0x00,
+    PreEmphasis = 0x01,
+    CopyPermitted = 0x02,
+    Data = 0x04,
+    FourChannel = 0x08,
+    SCMS = 0x10,
+    Any = 0xFF,
 }
 
 #[link(name = "cue")]
