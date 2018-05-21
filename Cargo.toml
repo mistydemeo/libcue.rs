@@ -1,6 +1,6 @@
 [package]
 name = "cue"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["Misty De Meo <mistydemeo@gmail.com>"]
 
 [dependencies]
@@ -8,4 +8,4 @@ libc = "0.2.40"
 
 [dependencies.cue-sys]
 path = "cue-sys"
-version = "0.1.0"
+version = "1.0.0"
