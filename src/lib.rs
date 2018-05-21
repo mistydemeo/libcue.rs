@@ -10,6 +10,10 @@
 //! formats. The Wikipedia articles for [Compact Disc](https://en.wikipedia.org/wiki/Compact_disc),
 //! [CD-ROM](https://en.wikipedia.org/wiki/CD-ROM) and [CUE sheet](https://en.wikipedia.org/wiki/Cue_sheet_(computing))
 //! are good accessible introductions.
+//!
+//! This crate does not, for the most part, document the types from the libcue library.
+//! Its documentation is available
+//! [in its own git repository](https://github.com/lipnitsk/libcue/blob/master/libcue.h).
 
 extern crate libc;
 extern crate cue_sys;
