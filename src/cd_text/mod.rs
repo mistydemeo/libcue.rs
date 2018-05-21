@@ -26,13 +26,16 @@ impl CDText {
         };
     }
 
-    /// Returns the CD-TEXT data represented by this struct as a string.
-    pub fn read(&self, pack_type: PTI) -> String {
+    /// Returns the CD-TEXT data represented by this struct as a string, if present.
+    pub fn read(&self, pack_type: PTI) -> Option<String> {
         let c_string;
         unsafe {
             let raw_string = libcue::cdtext_get(pack_type, self.cdtext);
+            if raw_string.is_null() {
+                return None;
+            }
             c_string = CString::from_raw(raw_string);
         }
-        return c_string.to_string_lossy().into_owned();
+        return Some(c_string.to_string_lossy().into_owned());
     }
 }

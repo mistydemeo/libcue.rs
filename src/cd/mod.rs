@@ -89,13 +89,19 @@ impl CD {
 
     /// Returns the path on disc to the sidecar metadata file containing CD-TEXT
     /// metadata, if any.
-    pub fn get_cdtextfile(&self) -> String {
+    ///
+    /// # Safety
+    /// This may segfault if there is no CD-TEXT sidecar.
+    pub fn get_cdtextfile(&self) -> Option<String> {
         let c_string;
         unsafe {
             let raw_string = libcue::cd_get_cdtextfile(self.cd);
+            if raw_string.is_null() {
+                return None;
+            }
             c_string = CString::from_raw(raw_string);
         }
-        return c_string.to_string_lossy().into_owned();
+        return Some(c_string.to_string_lossy().into_owned());
     }
 
     /// Returns the total number of tracks in this CD.

@@ -131,13 +131,16 @@ impl Track {
     /// for this track, if defined.
     /// While some CDs use ISRCs, they are not common and many
     /// CUE sheets leave them out even if the CD had them.
-    pub fn get_isrc(&self) -> String {
+    pub fn get_isrc(&self) -> Option<String> {
         let c_string;
         unsafe {
             let raw_string = libcue::track_get_isrc(self.track);
+            if raw_string.is_null() {
+                return None;
+            }
             c_string = CString::from_raw(raw_string);
         }
-        return c_string.to_string_lossy().into_owned();
+        return Some(c_string.to_string_lossy().into_owned());
     }
 
     /// Returns the track number.
