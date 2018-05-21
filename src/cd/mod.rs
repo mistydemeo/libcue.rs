@@ -23,8 +23,22 @@ use track::Track;
 /// Here's an example of a simple function which parses a CUE sheet and
 /// prints information about its contents:
 ///
-/// ```rust, ignore
-/// let cd = CD::parse_file(path).unwrap();
+/// ```rust
+/// use cue::cd::{CD, DiscMode};
+/// use cue::track::{TrackMode, TrackSubMode};
+///
+/// let cue_sheet = "FILE \"example.img\" BINARY
+///   TRACK 01 MODE1/2352
+///     INDEX 01 00:00:00
+///   TRACK 02 AUDIO
+///     PREGAP 00:02:00
+///     INDEX 01 58:41:36
+///   TRACK 03 AUDIO
+///     INDEX 00 61:06:08
+///     INDEX 01 61:08:08
+/// ";
+///
+/// let cd = CD::parse(cue_sheet.to_string()).unwrap();
 ///
 /// println!("Number of tracks: {}", cd.get_track_count());
 /// let mode = match cd.get_mode() {
@@ -38,7 +52,6 @@ use track::Track;
 /// for (index, track) in cd.tracks().iter().enumerate() {
 ///     println!("Track {}", index + 1);
 ///     println!("Filename: {}", track.get_filename());
-///     println!("Mode: {}", track_mode);
 ///     println!("Start: {}", track.get_start());
 ///     println!("Length: {}", track.get_length());
 ///     println!("Pregap: {}", track.get_zero_pre());
