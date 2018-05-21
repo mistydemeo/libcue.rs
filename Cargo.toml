@@ -8,7 +8,7 @@ keywords = ["cd", "cd-rom", "compact_disc", "cue_sheet", "libcue"]
 categories = ["api-bindings", "parser-implementations"]
 version = "1.0.0"
 authors = ["Misty De Meo <mistydemeo@gmail.com>"]
-license = "GPL-2.0-or-later"
+license = "GPL-2.0"
 
 [dependencies]
 libc = "0.2.40"
