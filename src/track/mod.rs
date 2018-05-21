@@ -24,7 +24,7 @@ use rem::REM;
 /// regions immediately before and after the track. These regions
 /// of a disc, known as the pregap and postgap, are not contained
 /// within any track but do have their own timecodes. They are
-/// usually silent but occasionally contain sound as a form of an
+/// usually silent but occasionally contain sound as a form of
 /// easter egg.
 ///
 /// The order content looks like this:
