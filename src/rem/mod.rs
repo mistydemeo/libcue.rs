@@ -1,7 +1,7 @@
 use std::ffi::CString;
 
 use libc;
-use libcue_sys as libcue;
+use cue_sys as libcue;
 
 #[repr(C)]
 #[allow(non_camel_case_types)]

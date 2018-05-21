@@ -1,7 +1,7 @@
 use std::ffi::CString;
 
-use libcue_sys as libcue;
-pub use libcue_sys::PTI;
+use cue_sys as libcue;
+pub use cue_sys::PTI;
 
 /// Represents [CD-TEXT](https://en.wikipedia.org/wiki/CD-Text)
 /// data stored in either a [`CD`] or a single [`Track`].

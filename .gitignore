@@ -1,5 +1,5 @@
 
 /target/
-/libcue-sys/target/
+/cue-sys/target/
 **/*.rs.bk
 Cargo.lock

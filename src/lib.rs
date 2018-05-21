@@ -12,7 +12,7 @@
 //! are good accessible introductions.
 
 extern crate libc;
-extern crate libcue_sys;
+extern crate cue_sys;
 
 /// The `CD` struct represents a disc, and is the entry point to parsing a CUE sheet.
 pub mod cd;
