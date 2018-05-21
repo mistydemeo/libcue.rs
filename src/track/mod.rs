@@ -82,14 +82,12 @@ impl Track {
         }
     }
 
-    /// Returns a `TrackSubMode` variant indicating whether this is a
-    /// "RAW" or "cooked" track.
-    /// This is most relevant to data tracks, which are made up of
-    /// a mixture of data and error-correction (ECC) values. In a "cooked"
-    /// track, the ECC data is left out and only the actual data is left;
-    /// this saves some space, since only 2048 or 2336 bytes out of each
-    /// 2352-byte sector contain the actual data.
-    /// In a "RAW" track, the ECC values from the original disc are kept.
+    /// Returns a `TrackSubMode` variant indicating whether the format
+    /// of subchannel data provided for this track.
+    ///
+    /// The BIN/CUE format does not normally provide subchannel data,
+    /// but when it does it provides data for subchannels R through W
+    /// in either a "raw" or a "cooked" format.
     pub fn get_sub_mode(&self) -> TrackSubMode {
         unsafe {
             return libcue::track_get_sub_mode(self.track);
