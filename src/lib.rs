@@ -15,9 +15,6 @@
 //! Its documentation is available
 //! [in its own git repository](https://github.com/lipnitsk/libcue/blob/master/libcue.h).
 
-extern crate libc;
-extern crate cue_sys;
-
 /// The `CD` struct represents a disc, and is the entry point to parsing a CUE sheet.
 pub mod cd;
 /// The `CDText` struct represents [CD-TEXT](https://en.wikipedia.org/wiki/CD-Text) data

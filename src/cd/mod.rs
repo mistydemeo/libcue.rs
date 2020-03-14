@@ -8,9 +8,9 @@ use libc;
 use cue_sys as libcue;
 pub use cue_sys::DiscMode;
 
-use cd_text::CDText;
-use rem::REM;
-use track::Track;
+use crate::cd_text::CDText;
+use crate::rem::REM;
+use crate::track::Track;
 
 /// The CD struct represents the entirety of a CD, which is the core unit of
 /// a CUE sheet. This struct contains the parsing methods used as the primary

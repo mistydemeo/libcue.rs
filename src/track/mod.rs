@@ -4,8 +4,8 @@ use libc;
 use cue_sys as libcue;
 pub use cue_sys::{TrackMode, TrackSubMode, TrackFlag};
 
-use cd_text::CDText;
-use rem::REM;
+use crate::cd_text::CDText;
+use crate::rem::REM;
 
 /// The Track struct represents a single track within a CD.
 /// A track can be one of several types, represented by the
