@@ -6,6 +6,7 @@ repository = "https://github.com/mistydemeo/libcue.rs"
 keywords = ["cd", "cd-rom", "cue_sheet"]
 categories = ["external-ffi-bindings", "parser-implementations"]
 version = "1.0.0"
+edition = "2018"
 authors = ["Misty De Meo <mistydemeo@gmail.com>"]
 license = "GPL-2.0-or-later"
 
