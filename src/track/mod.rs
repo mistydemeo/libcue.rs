@@ -1,8 +1,8 @@
 use std::ffi::CString;
 
-use libc;
 use cue_sys as libcue;
-pub use cue_sys::{TrackMode, TrackSubMode, TrackFlag};
+pub use cue_sys::{TrackFlag, TrackMode, TrackSubMode};
+use libc;
 
 use crate::cd_text::CDText;
 use crate::rem::REM;
@@ -44,9 +44,7 @@ pub struct Track {
 
 impl Track {
     pub fn from(pointer: *mut libcue::TrackPointer) -> Track {
-        return Track {
-            track: pointer,
-        };
+        return Track { track: pointer };
     }
 
     /// Returns the filename of the file containing this track.

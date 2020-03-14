@@ -1,12 +1,12 @@
 use std::ffi::{CString, NulError};
 use std::fs::File;
-use std::io::prelude::*;
 use std::io;
+use std::io::prelude::*;
 use std::path::PathBuf;
 
-use libc;
 use cue_sys as libcue;
 pub use cue_sys::DiscMode;
+use libc;
 
 use crate::cd_text::CDText;
 use crate::rem::REM;
@@ -74,9 +74,7 @@ impl CD {
         unsafe {
             cd = libcue::cue_parse_string(c_string.as_ptr());
         }
-        let cd_type = CD {
-            cd: cd,
-        };
+        let cd_type = CD { cd: cd };
         return Ok(cd_type);
     }
 

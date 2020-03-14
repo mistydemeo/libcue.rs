@@ -1,7 +1,7 @@
 use std::ffi::CString;
 
-use libc;
 use cue_sys as libcue;
+use libc;
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
@@ -25,9 +25,7 @@ pub struct REM {
 
 impl REM {
     pub fn from(pointer: *mut libcue::RemPointer) -> REM {
-        return REM {
-            rem: pointer,
-        };
+        return REM { rem: pointer };
     }
 
     /// Returns the comment represented by this struct as a string, if present.
