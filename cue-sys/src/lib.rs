@@ -1,5 +1,3 @@
-extern crate libc;
-
 pub enum CdPointer {}
 pub enum CdtextPointer {}
 pub enum TrackPointer {}

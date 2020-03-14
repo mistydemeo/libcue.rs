@@ -21,9 +21,7 @@ pub struct CDText {
 
 impl CDText {
     pub fn from(pointer: *mut libcue::CdtextPointer) -> CDText {
-        return CDText {
-            cdtext: pointer,
-        };
+        return CDText { cdtext: pointer };
     }
 
     /// Returns the CD-TEXT data represented by this struct as a string, if present.

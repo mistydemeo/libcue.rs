@@ -1,16 +1,16 @@
 use std::ffi::{CString, NulError};
 use std::fs::File;
-use std::io::prelude::*;
 use std::io;
+use std::io::prelude::*;
 use std::path::PathBuf;
 
-use libc;
 use cue_sys as libcue;
 pub use cue_sys::DiscMode;
+use libc;
 
-use cd_text::CDText;
-use rem::REM;
-use track::Track;
+use crate::cd_text::CDText;
+use crate::rem::REM;
+use crate::track::Track;
 
 /// The CD struct represents the entirety of a CD, which is the core unit of
 /// a CUE sheet. This struct contains the parsing methods used as the primary
@@ -74,9 +74,7 @@ impl CD {
         unsafe {
             cd = libcue::cue_parse_string(c_string.as_ptr());
         }
-        let cd_type = CD {
-            cd: cd,
-        };
+        let cd_type = CD { cd: cd };
         return Ok(cd_type);
     }
 
