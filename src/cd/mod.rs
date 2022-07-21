@@ -105,11 +105,11 @@ impl CD {
     /// This may segfault if there is no CD-TEXT sidecar.
     pub fn get_cdtextfile(&self) -> Option<String> {
         let c_str;
+        let raw_string = unsafe { libcue::cd_get_cdtextfile(self.cd) };
+        if raw_string.is_null() {
+            return None;
+        }
         unsafe {
-            let raw_string = libcue::cd_get_cdtextfile(self.cd);
-            if raw_string.is_null() {
-                return None;
-            }
             c_str = CStr::from_ptr(raw_string);
         }
         return Some(c_str.to_string_lossy().into_owned());
