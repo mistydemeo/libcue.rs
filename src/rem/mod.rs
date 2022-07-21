@@ -31,11 +31,11 @@ impl REM {
     /// Returns the comment represented by this struct as a string, if present.
     pub fn read(&self, index: usize) -> Option<String> {
         let c_str;
+        let raw_string = unsafe { libcue::rem_get(index as libc::c_uint, self.rem) };
+        if raw_string.is_null() {
+            return None;
+        }
         unsafe {
-            let raw_string = libcue::rem_get(index as libc::c_uint, self.rem);
-            if raw_string.is_null() {
-                return None;
-            }
             c_str = CStr::from_ptr(raw_string);
         }
         return Some(c_str.to_string_lossy().into_owned());
