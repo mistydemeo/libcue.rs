@@ -67,9 +67,17 @@ impl Track {
     }
 
     /// Returns the length of this track in sectors.
-    pub fn get_length(&self) -> i64 {
+    pub fn get_length(&self) -> Option<i64> {
+        let length;
         unsafe {
-            return libcue::track_get_length(self.track) as i64;
+            length = libcue::track_get_length(self.track) as i64;
+        }
+
+        // Original API uses -1 to indicate no value
+        if length == -1 {
+            None
+        } else {
+            Some(length)
         }
     }
 
@@ -109,9 +117,16 @@ impl Track {
     /// It almost always consists of two seconds of silence, though
     /// it can be any length and contain any data; this is occasionally
     /// used for secret tracks.
-    pub fn get_zero_pre(&self) -> i64 {
+    pub fn get_zero_pre(&self) -> Option<i64> {
+        let result;
         unsafe {
-            return libcue::track_get_zero_pre(self.track) as i64;
+            result = libcue::track_get_zero_pre(self.track) as i64;
+        }
+
+        if result == -1 {
+            None
+        } else {
+            Some(result)
         }
     }
 
@@ -119,9 +134,16 @@ impl Track {
     /// Like the pregap, the postgap is a region that comes after
     /// the end of a track and before the next one; if present,
     /// it almost always consists of silence.
-    pub fn get_zero_post(&self) -> i64 {
+    pub fn get_zero_post(&self) -> Option<i64> {
+        let result;
         unsafe {
-            return libcue::track_get_zero_post(self.track) as i64;
+            result = libcue::track_get_zero_post(self.track) as i64;
+        }
+
+        if result == -1 {
+            None
+        } else {
+            Some(result)
         }
     }
 
@@ -141,10 +163,17 @@ impl Track {
         return Some(c_str.to_string_lossy().into_owned());
     }
 
-    /// Returns the track number.
-    pub fn get_index(&self, index: isize) -> isize {
+    /// Returns the start of the requested index within the track.
+    pub fn get_index(&self, index: isize) -> Option<isize> {
+        let result;
         unsafe {
-            return libcue::track_get_index(self.track, index as libc::c_int) as isize;
+            result = libcue::track_get_index(self.track, index as libc::c_int) as isize;
+        }
+
+        if result == -1 {
+            None
+        } else {
+            Some(result)
         }
     }
 
