@@ -10,7 +10,6 @@ Here's a simple example of how to use this crate using a sample CUE sheet:
 
 ```rust
 use cue::cd::{CD, DiscMode};
-use cue::track::{TrackMode, TrackSubMode};
 
 let cue_sheet = "FILE \"example.img\" BINARY
   TRACK 01 MODE1/2352
@@ -38,9 +37,9 @@ for (index, track) in cd.tracks().iter().enumerate() {
     println!("Track {}", index + 1);
     println!("Filename: {}", track.get_filename());
     println!("Start: {}", track.get_start());
-    println!("Length: {}", track.get_length());
-    println!("Pregap: {}", track.get_zero_pre());
-    println!("Postgap: {}", track.get_zero_post());
+    println!("Length: {}", track.get_length().unwrap_or(-1));
+    println!("Pregap: {}", track.get_zero_pre().unwrap_or(0));
+    println!("Postgap: {}", track.get_zero_post().unwrap_or(0));
     println!("");
 }
 ```
