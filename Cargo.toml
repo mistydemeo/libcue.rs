@@ -6,7 +6,7 @@ repository = "https://github.com/mistydemeo/libcue.rs"
 readme = "README.md"
 keywords = ["cd", "cd-rom", "cue_sheet"]
 categories = ["api-bindings", "parser-implementations"]
-version = "2.0.0"
+version = "3.0.0"
 edition = "2021"
 authors = ["Misty De Meo <mistydemeo@gmail.com>"]
 license = "GPL-2.0-or-later"
@@ -16,4 +16,4 @@ libc = "0.2.40"
 
 [dependencies.cue-sys]
 path = "cue-sys"
-version = "1.0.0"
+version = "2.0.0"
