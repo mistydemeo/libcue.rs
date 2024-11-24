@@ -1,0 +1,3 @@
+[submodule "vendor/libcue"]
+	path = cue-sys/vendor/libcue
+	url = https://github.com/lipnitsk/libcue
