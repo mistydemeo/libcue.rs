@@ -69,7 +69,11 @@ impl CD {
     /// # Errors
     /// Returns a `NulError` if the provided string contains any null bytes.
     pub fn parse(string: String) -> Result<CD, NulError> {
-        let c_string = CString::new(string)?;
+        // Trim trailing newlines to work around a libcue bug:
+        // https://github.com/lipnitsk/libcue/issues/52
+        let cue = string.trim_end_matches(['\r', '\n']);
+
+        let c_string = CString::new(cue)?;
         let cd;
         unsafe {
             cd = libcue::cue_parse_string(c_string.as_ptr());
