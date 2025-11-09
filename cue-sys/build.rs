@@ -5,6 +5,7 @@ fn main() {
 
     let dst = Config::new("vendor/libcue")
         .define("BUILD_SHARED_LIBS", "OFF")
+        .define("CMAKE_POLICY_VERSION_MINIMUM", "3.5")
         .build();
     println!(
         "cargo:rustc-link-search=native={}",
